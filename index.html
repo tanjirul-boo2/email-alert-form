@@ -60,11 +60,14 @@
     .phase-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;padding:12px}
     .phase-row + .phase-row{border-top:1px solid #eef1f5}
     .phase-actions{display:flex;gap:8px;padding:0 12px 12px}
+    .disabled-section{opacity:.55}
+    select:disabled,.btn:disabled{cursor:not-allowed;opacity:.55}
     .preview{border:1px solid var(--border);border-radius:9px;background:#fbfcfe;padding:14px;font-size:13px;line-height:1.55}
     .preview strong{display:inline-block;min-width:90px}
     table{width:100%;border-collapse:collapse;font-size:13px}
     th,td{padding:11px 12px;border-bottom:1px solid #e8ecf2;text-align:left;vertical-align:top}
     th{background:#f8fafc;font-size:12px;color:#4b5563}
+    .numeric-col{text-align:right}
     .log-status{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700}
     .sent{background:#ecfdf5;color:#166534}.failed{background:#fef2f2;color:#991b1b}
     .footer-actions{display:flex;justify-content:flex-end;gap:10px;padding:18px 20px;border-top:1px solid var(--border);background:#fbfcfe}
@@ -225,24 +228,25 @@ Truck & Trace</textarea>
         </div>
 
         <div id="phaseContainer">
-          <div class="phase-block">
+          <div class="phase-block" style="display:none;">
             <div class="phase-head">
-              <select>
+              <select class="phase-select" disabled>
+                <option selected>Select phase...</option>
                 <option>Main Phase 1</option>
                 <option>Main Phase 2</option>
                 <option>Main Phase 3</option>
               </select>
               <button type="button" class="icon-btn delete-btn" title="Delete phase" aria-label="Delete phase" onclick="removePhase(this)">&#128465;</button>
             </div>
-            <div class="phase-row task-only-row">
+            <div class="phase-row task-only-row task-section" style="display:none;">
               <div class="field">
                 <label>Task</label>
-                <select><option>Task A</option><option>Task B</option><option>Task C</option></select>
+                <select class="task-select" disabled><option selected>Select task...</option><option>Task A</option><option>Task B</option><option>Task C</option></select>
               </div>
               <button type="button" class="icon-btn delete-btn" title="Delete task" aria-label="Delete task" onclick="this.closest('.phase-row').remove()">&#128465;</button>
             </div>
             <div class="phase-actions">
-              <button type="button" class="btn btn-secondary" onclick="addTaskRow(this)">+ Add Task</button>
+              <button type="button" class="btn btn-secondary add-task-btn" onclick="addTaskRow(this)" disabled>+ Add Task</button>
             </div>
           </div>
         </div>
@@ -265,198 +269,174 @@ Truck & Trace</textarea>
         <div style="overflow:auto">
           <table>
             <thead>
-              <tr><th>Date / Time</th><th>Recipients</th><th>Phase / Task</th><th>Overdue Tasks</th><th>Status</th><th>Message</th></tr>
+              <tr><th>Date / Time</th><th>Recipients</th><th class="numeric-col">Overdue Tasks</th><th>Status</th><th>Message</th></tr>
             </thead>
             <tbody id="notificationLogBody">
-              <tr class="notification-log-row" data-search="19-08-2026 08:00 operations@example.com + 4 assigned users operations@example.com; john.doe@example.com; planner1@example.com; technician2@example.com; supervisor@example.com Main Phase 1 / Selected tasks 12 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="19-08-2026 08:00 john.doe@example.com john.doe@example.com 12 Sent Notification sent successfully">
                 <td>19-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com + 4 assigned users<span class="tooltip">operations@example.com; john.doe@example.com; planner1@example.com; technician2@example.com; supervisor@example.com</span></td>
-                <td>Main Phase 1 / Selected tasks</td>
-                <td>12</td>
+                <td class="recipient-cell">john.doe@example.com<span class="tooltip">john.doe@example.com</span></td>
+                <td class="numeric-col">12</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="18-08-2026 08:00 operations@example.com + 3 assigned users operations@example.com; planner1@example.com; technician2@example.com; supervisor@example.com Main Phase 1 / Selected tasks 9 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="18-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 9 Sent Notification sent successfully">
                 <td>18-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com + 3 assigned users<span class="tooltip">operations@example.com; planner1@example.com; technician2@example.com; supervisor@example.com</span></td>
-                <td>Main Phase 1 / Selected tasks</td>
-                <td>9</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">9</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="17-08-2026 08:00 planning@example.com planning@example.com Main Phase 2 / Task B 2 Failed Mail server timeout">
+              <tr class="notification-log-row" data-search="17-08-2026 08:00 planning@example.com planning@example.com 2 Failed Mail server timeout">
                 <td>17-08-2026 08:00</td>
                 <td class="recipient-cell">planning@example.com<span class="tooltip">planning@example.com</span></td>
-                <td>Main Phase 2 / Task B</td>
-                <td>2</td>
+                <td class="numeric-col">2</td>
                 <td><span class="log-status failed">Failed</span></td>
                 <td>Mail server timeout</td>
               </tr>
-              <tr class="notification-log-row" data-search="16-08-2026 08:00 operations@example.com + 2 assigned users operations@example.com; john.doe@example.com; planner1@example.com Main Phase 1 / Task A 5 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="16-08-2026 08:00 technician2@example.com technician2@example.com 5 Sent Notification sent successfully">
                 <td>16-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com + 2 assigned users<span class="tooltip">operations@example.com; john.doe@example.com; planner1@example.com</span></td>
-                <td>Main Phase 1 / Task A</td>
-                <td>5</td>
+                <td class="recipient-cell">technician2@example.com<span class="tooltip">technician2@example.com</span></td>
+                <td class="numeric-col">5</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="15-08-2026 08:00 support@example.com support@example.com Main Phase 2 / Task C 3 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="15-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 3 Sent Notification sent successfully">
                 <td>15-08-2026 08:00</td>
-                <td class="recipient-cell">support@example.com<span class="tooltip">support@example.com</span></td>
-                <td>Main Phase 2 / Task C</td>
-                <td>3</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">3</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="14-08-2026 08:00 operations@example.com + 5 assigned users operations@example.com; user1@example.com; user2@example.com; user3@example.com; user4@example.com; user5@example.com Main Phase 1 / Selected tasks 14 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="14-08-2026 08:00 supervisor@example.com supervisor@example.com 14 Sent Notification sent successfully">
                 <td>14-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com + 5 assigned users<span class="tooltip">operations@example.com; user1@example.com; user2@example.com; user3@example.com; user4@example.com; user5@example.com</span></td>
-                <td>Main Phase 1 / Selected tasks</td>
-                <td>14</td>
+                <td class="recipient-cell">supervisor@example.com<span class="tooltip">supervisor@example.com</span></td>
+                <td class="numeric-col">14</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="13-08-2026 08:00 planning@example.com + 1 assigned user planning@example.com; user1@example.com Main Phase 2 / Task A 4 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="13-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 4 Sent Notification sent successfully">
                 <td>13-08-2026 08:00</td>
-                <td class="recipient-cell">planning@example.com + 1 assigned user<span class="tooltip">planning@example.com; user1@example.com</span></td>
-                <td>Main Phase 2 / Task A</td>
-                <td>4</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">4</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="12-08-2026 08:00 operations@example.com operations@example.com Main Phase 3 / Task B 1 Failed Recipient mailbox unavailable">
+              <tr class="notification-log-row" data-search="12-08-2026 08:00 user3@example.com user3@example.com 1 Failed Recipient mailbox unavailable">
                 <td>12-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com<span class="tooltip">operations@example.com</span></td>
-                <td>Main Phase 3 / Task B</td>
-                <td>1</td>
+                <td class="recipient-cell">user3@example.com<span class="tooltip">user3@example.com</span></td>
+                <td class="numeric-col">1</td>
                 <td><span class="log-status failed">Failed</span></td>
                 <td>Recipient mailbox unavailable</td>
               </tr>
-              <tr class="notification-log-row" data-search="11-08-2026 08:00 support@example.com + 2 assigned users support@example.com; user2@example.com; user3@example.com Main Phase 1 / Task C 6 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="11-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 6 Sent Notification sent successfully">
                 <td>11-08-2026 08:00</td>
-                <td class="recipient-cell">support@example.com + 2 assigned users<span class="tooltip">support@example.com; user2@example.com; user3@example.com</span></td>
-                <td>Main Phase 1 / Task C</td>
-                <td>6</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">6</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="10-08-2026 08:00 planning@example.com planning@example.com Main Phase 2 / Selected tasks 8 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="10-08-2026 08:00 user4@example.com user4@example.com 8 Sent Notification sent successfully">
                 <td>10-08-2026 08:00</td>
-                <td class="recipient-cell">planning@example.com<span class="tooltip">planning@example.com</span></td>
-                <td>Main Phase 2 / Selected tasks</td>
-                <td>8</td>
+                <td class="recipient-cell">user4@example.com<span class="tooltip">user4@example.com</span></td>
+                <td class="numeric-col">8</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="09-08-2026 08:00 operations@example.com + 1 assigned user operations@example.com; user4@example.com Main Phase 1 / Task B 3 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="09-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 3 Sent Notification sent successfully">
                 <td>09-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com + 1 assigned user<span class="tooltip">operations@example.com; user4@example.com</span></td>
-                <td>Main Phase 1 / Task B</td>
-                <td>3</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">3</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="08-08-2026 08:00 support@example.com support@example.com Main Phase 2 / Task C 2 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="08-08-2026 08:00 user5@example.com user5@example.com 2 Sent Notification sent successfully">
                 <td>08-08-2026 08:00</td>
-                <td class="recipient-cell">support@example.com<span class="tooltip">support@example.com</span></td>
-                <td>Main Phase 2 / Task C</td>
-                <td>2</td>
+                <td class="recipient-cell">user5@example.com<span class="tooltip">user5@example.com</span></td>
+                <td class="numeric-col">2</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="07-08-2026 08:00 operations@example.com + 2 assigned users operations@example.com; user1@example.com; user5@example.com Main Phase 1 / Selected tasks 7 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="07-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 7 Sent Notification sent successfully">
                 <td>07-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com + 2 assigned users<span class="tooltip">operations@example.com; user1@example.com; user5@example.com</span></td>
-                <td>Main Phase 1 / Selected tasks</td>
-                <td>7</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">7</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="06-08-2026 08:00 planning@example.com planning@example.com Main Phase 3 / Task A 2 Failed Mail server timeout">
+              <tr class="notification-log-row" data-search="06-08-2026 08:00 user6@example.com user6@example.com 2 Failed Mail server timeout">
                 <td>06-08-2026 08:00</td>
-                <td class="recipient-cell">planning@example.com<span class="tooltip">planning@example.com</span></td>
-                <td>Main Phase 3 / Task A</td>
-                <td>2</td>
+                <td class="recipient-cell">user6@example.com<span class="tooltip">user6@example.com</span></td>
+                <td class="numeric-col">2</td>
                 <td><span class="log-status failed">Failed</span></td>
                 <td>Mail server timeout</td>
               </tr>
-              <tr class="notification-log-row" data-search="05-08-2026 08:00 operations@example.com operations@example.com Main Phase 1 / Task A 4 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="05-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 4 Sent Notification sent successfully">
                 <td>05-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com<span class="tooltip">operations@example.com</span></td>
-                <td>Main Phase 1 / Task A</td>
-                <td>4</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">4</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="04-08-2026 08:00 support@example.com + 3 assigned users support@example.com; user2@example.com; user3@example.com; user4@example.com Main Phase 2 / Selected tasks 10 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="04-08-2026 08:00 user7@example.com user7@example.com 10 Sent Notification sent successfully">
                 <td>04-08-2026 08:00</td>
-                <td class="recipient-cell">support@example.com + 3 assigned users<span class="tooltip">support@example.com; user2@example.com; user3@example.com; user4@example.com</span></td>
-                <td>Main Phase 2 / Selected tasks</td>
-                <td>10</td>
+                <td class="recipient-cell">user7@example.com<span class="tooltip">user7@example.com</span></td>
+                <td class="numeric-col">10</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="03-08-2026 08:00 planning@example.com planning@example.com Main Phase 1 / Task C 1 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="03-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 1 Sent Notification sent successfully">
                 <td>03-08-2026 08:00</td>
-                <td class="recipient-cell">planning@example.com<span class="tooltip">planning@example.com</span></td>
-                <td>Main Phase 1 / Task C</td>
-                <td>1</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">1</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="02-08-2026 08:00 operations@example.com + 2 assigned users operations@example.com; user1@example.com; user2@example.com Main Phase 2 / Task B 5 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="02-08-2026 08:00 user8@example.com user8@example.com 5 Sent Notification sent successfully">
                 <td>02-08-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com + 2 assigned users<span class="tooltip">operations@example.com; user1@example.com; user2@example.com</span></td>
-                <td>Main Phase 2 / Task B</td>
-                <td>5</td>
+                <td class="recipient-cell">user8@example.com<span class="tooltip">user8@example.com</span></td>
+                <td class="numeric-col">5</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="01-08-2026 08:00 support@example.com support@example.com Main Phase 1 / Task A 2 Failed Mail server timeout">
+              <tr class="notification-log-row" data-search="01-08-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 2 Failed Mail server timeout">
                 <td>01-08-2026 08:00</td>
-                <td class="recipient-cell">support@example.com<span class="tooltip">support@example.com</span></td>
-                <td>Main Phase 1 / Task A</td>
-                <td>2</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">2</td>
                 <td><span class="log-status failed">Failed</span></td>
                 <td>Mail server timeout</td>
               </tr>
-              <tr class="notification-log-row" data-search="31-07-2026 08:00 operations@example.com operations@example.com Main Phase 3 / Task C 3 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="31-07-2026 08:00 user9@example.com user9@example.com 3 Sent Notification sent successfully">
                 <td>31-07-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com<span class="tooltip">operations@example.com</span></td>
-                <td>Main Phase 3 / Task C</td>
-                <td>3</td>
+                <td class="recipient-cell">user9@example.com<span class="tooltip">user9@example.com</span></td>
+                <td class="numeric-col">3</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="30-07-2026 08:00 planning@example.com + 1 assigned user planning@example.com; user3@example.com Main Phase 1 / Selected tasks 6 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="30-07-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 6 Sent Notification sent successfully">
                 <td>30-07-2026 08:00</td>
-                <td class="recipient-cell">planning@example.com + 1 assigned user<span class="tooltip">planning@example.com; user3@example.com</span></td>
-                <td>Main Phase 1 / Selected tasks</td>
-                <td>6</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">6</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="29-07-2026 08:00 support@example.com support@example.com Main Phase 2 / Task A 2 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="29-07-2026 08:00 user10@example.com user10@example.com 2 Sent Notification sent successfully">
                 <td>29-07-2026 08:00</td>
-                <td class="recipient-cell">support@example.com<span class="tooltip">support@example.com</span></td>
-                <td>Main Phase 2 / Task A</td>
-                <td>2</td>
+                <td class="recipient-cell">user10@example.com<span class="tooltip">user10@example.com</span></td>
+                <td class="numeric-col">2</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="28-07-2026 08:00 operations@example.com + 2 assigned users operations@example.com; user1@example.com; user4@example.com Main Phase 1 / Task B 5 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="28-07-2026 08:00 operations@example.com; planning@example.com operations@example.com; planning@example.com 5 Sent Notification sent successfully">
                 <td>28-07-2026 08:00</td>
-                <td class="recipient-cell">operations@example.com + 2 assigned users<span class="tooltip">operations@example.com; user1@example.com; user4@example.com</span></td>
-                <td>Main Phase 1 / Task B</td>
-                <td>5</td>
+                <td class="recipient-cell">operations@example.com; planning@example.com<span class="tooltip">operations@example.com; planning@example.com</span></td>
+                <td class="numeric-col">5</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
-              <tr class="notification-log-row" data-search="27-07-2026 08:00 planning@example.com planning@example.com Main Phase 2 / Selected tasks 7 Sent Notification sent successfully">
+              <tr class="notification-log-row" data-search="27-07-2026 08:00 user11@example.com user11@example.com 7 Sent Notification sent successfully">
                 <td>27-07-2026 08:00</td>
-                <td class="recipient-cell">planning@example.com<span class="tooltip">planning@example.com</span></td>
-                <td>Main Phase 2 / Selected tasks</td>
-                <td>7</td>
+                <td class="recipient-cell">user11@example.com<span class="tooltip">user11@example.com</span></td>
+                <td class="numeric-col">7</td>
                 <td><span class="log-status sent">Sent</span></td>
                 <td>Notification sent successfully</td>
               </tr>
@@ -489,31 +469,84 @@ Truck & Trace</textarea>
 
 <script>
 function addPhase(){
-  const container=document.getElementById('phaseContainer');
-  const block=document.createElement('div');
-  block.className='phase-block';
-  block.innerHTML=`
+  const container = document.getElementById('phaseContainer');
+  const hiddenBlock = container.querySelector('.phase-block[style*="display:none"]');
+
+  if(hiddenBlock){
+    hiddenBlock.style.display = '';
+    const phaseSelect = hiddenBlock.querySelector('.phase-select');
+    phaseSelect.disabled = false;
+    phaseSelect.focus();
+    return;
+  }
+
+  const block = document.createElement('div');
+  block.className = 'phase-block';
+  block.innerHTML = `
     <div class="phase-head">
-      <select><option>Select phase...</option><option>Main Phase 1</option><option>Main Phase 2</option><option>Main Phase 3</option></select>
+      <select class="phase-select">
+        <option selected>Select phase...</option>
+        <option>Main Phase 1</option>
+        <option>Main Phase 2</option>
+        <option>Main Phase 3</option>
+      </select>
       <button type="button" class="icon-btn delete-btn" title="Delete phase" aria-label="Delete phase" onclick="removePhase(this)">&#128465;</button>
     </div>
-    <div class="phase-row task-only-row">
-      <div class="field"><label>Task</label><select><option>Select task...</option><option>Task A</option><option>Task B</option><option>Task C</option></select></div>
+    <div class="phase-row task-only-row task-section" style="display:none;">
+      <div class="field">
+        <label>Task</label>
+        <select class="task-select">
+          <option selected>Select task...</option>
+          <option>Task A</option>
+          <option>Task B</option>
+          <option>Task C</option>
+        </select>
+      </div>
       <button type="button" class="icon-btn delete-btn" title="Delete task" aria-label="Delete task" onclick="this.closest('.phase-row').remove()">&#128465;</button>
     </div>
-    <div class="phase-actions"><button type="button" class="btn btn-secondary" onclick="addTaskRow(this)">+ Add Task</button></div>`;
+    <div class="phase-actions" style="display:none;">
+      <button type="button" class="btn btn-secondary add-task-btn" onclick="addTaskRow(this)">+ Add Task</button>
+    </div>`;
   container.appendChild(block);
 }
 function removePhase(btn){btn.closest('.phase-block').remove()}
 function addTaskRow(btn){
   const block=btn.closest('.phase-block');
+  const phaseSelect=block.querySelector('.phase-select');
+  if(!phaseSelect || !phaseSelect.value || phaseSelect.value === 'Select phase...') return;
+
   const row=document.createElement('div');
-  row.className='phase-row task-only-row';
+  row.className='phase-row task-only-row task-section';
   row.innerHTML=`
-    <div class="field"><label>Task</label><select><option>Select task...</option><option>Task A</option><option>Task B</option><option>Task C</option></select></div>
+    <div class="field">
+      <label>Task</label>
+      <select class="task-select">
+        <option selected>Select task...</option>
+        <option>Task A</option>
+        <option>Task B</option>
+        <option>Task C</option>
+      </select>
+    </div>
     <button type="button" class="icon-btn delete-btn" title="Delete task" aria-label="Delete task" onclick="this.closest('.phase-row').remove()">&#128465;</button>`;
   block.querySelector('.phase-actions').before(row);
 }
+
+document.getElementById('phaseContainer').addEventListener('change', function(e){
+  if(!e.target.classList.contains('phase-select')) return;
+
+  const block = e.target.closest('.phase-block');
+  const selected = e.target.value && e.target.value !== 'Select phase...';
+  const taskSection = block.querySelector('.task-section');
+  const taskSelect = block.querySelector('.task-select');
+  const actions = block.querySelector('.phase-actions');
+  const addTaskBtn = block.querySelector('.add-task-btn');
+
+  if(taskSection) taskSection.style.display = selected ? '' : 'none';
+  if(actions) actions.style.display = selected ? '' : 'none';
+  if(taskSelect) taskSelect.disabled = !selected;
+  if(addTaskBtn) addTaskBtn.disabled = !selected;
+});
+
 let saveTimer;
 document.getElementById('alertForm').addEventListener('input', function(){
   clearTimeout(saveTimer);
