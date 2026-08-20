@@ -224,7 +224,7 @@ Truck & Trace</textarea>
       <div class="card-body">
         <div class="toolbar phase-toolbar">
           <button type="button" class="btn btn-primary" onclick="addPhase()">+ Add Phase</button>
-          <div class="hint phase-help">Select only the phases and tasks that should generate overdue email notifications. For example, you can enable notifications for all tasks in Main Phase 1 while leaving Main Phase 3 excluded.</div>
+          <div class="hint phase-help">Click + Add Phase to select a phase. After a phase is selected, one Task dropdown and the + Add Task button will be shown.</div>
         </div>
 
         <div id="phaseContainer">
@@ -245,7 +245,7 @@ Truck & Trace</textarea>
               </div>
               <button type="button" class="icon-btn delete-btn" title="Delete task" aria-label="Delete task" onclick="this.closest('.phase-row').remove()">&#128465;</button>
             </div>
-            <div class="phase-actions">
+            <div class="phase-actions" style="display:none;">
               <button type="button" class="btn btn-secondary add-task-btn" onclick="addTaskRow(this)" disabled>+ Add Task</button>
             </div>
           </div>
@@ -495,7 +495,7 @@ function addPhase(){
     <div class="phase-row task-only-row task-section" style="display:none;">
       <div class="field">
         <label>Task</label>
-        <select class="task-select">
+        <select class="task-select" disabled>
           <option selected>Select task...</option>
           <option>Task A</option>
           <option>Task B</option>
@@ -505,7 +505,7 @@ function addPhase(){
       <button type="button" class="icon-btn delete-btn" title="Delete task" aria-label="Delete task" onclick="this.closest('.phase-row').remove()">&#128465;</button>
     </div>
     <div class="phase-actions" style="display:none;">
-      <button type="button" class="btn btn-secondary add-task-btn" onclick="addTaskRow(this)">+ Add Task</button>
+      <button type="button" class="btn btn-secondary add-task-btn" disabled onclick="addTaskRow(this)">+ Add Task</button>
     </div>`;
   container.appendChild(block);
 }
@@ -541,10 +541,20 @@ document.getElementById('phaseContainer').addEventListener('change', function(e)
   const actions = block.querySelector('.phase-actions');
   const addTaskBtn = block.querySelector('.add-task-btn');
 
-  if(taskSection) taskSection.style.display = selected ? '' : 'none';
-  if(actions) actions.style.display = selected ? '' : 'none';
-  if(taskSelect) taskSelect.disabled = !selected;
-  if(addTaskBtn) addTaskBtn.disabled = !selected;
+  // Before a phase is selected, do not show Task or Add Task.
+  if(!selected){
+    if(taskSection) taskSection.style.display = 'none';
+    if(actions) actions.style.display = 'none';
+    if(taskSelect) taskSelect.disabled = true;
+    if(addTaskBtn) addTaskBtn.disabled = true;
+    return;
+  }
+
+  // After selecting a phase, show one Task dropdown and the Add Task button together.
+  if(taskSection) taskSection.style.display = '';
+  if(actions) actions.style.display = '';
+  if(taskSelect) taskSelect.disabled = false;
+  if(addTaskBtn) addTaskBtn.disabled = false;
 });
 
 let saveTimer;
@@ -650,6 +660,32 @@ notificationControlToggle.addEventListener('change', () => {
     ? 'Notification control active'
     : 'Notification control inactive';
   notificationStatusText.classList.toggle('inactive', !active);
+});
+
+
+document.addEventListener('DOMContentLoaded', function(){
+  const container = document.getElementById('phaseContainer');
+  if(!container) return;
+
+  const blocks = container.querySelectorAll('.phase-block');
+  blocks.forEach((block) => {
+    const phaseSelect = block.querySelector('.phase-select');
+    const taskSection = block.querySelector('.task-section');
+    const actions = block.querySelector('.phase-actions');
+    const taskSelect = block.querySelector('.task-select');
+    const addTaskBtn = block.querySelector('.add-task-btn');
+
+    const hasSelectedPhase = phaseSelect &&
+      phaseSelect.value &&
+      phaseSelect.value !== 'Select phase...';
+
+    if(!hasSelectedPhase){
+      if(taskSection) taskSection.style.display = 'none';
+      if(actions) actions.style.display = 'none';
+      if(taskSelect) taskSelect.disabled = true;
+      if(addTaskBtn) addTaskBtn.disabled = true;
+    }
+  });
 });
 
 </script>
