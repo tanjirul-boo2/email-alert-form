@@ -16,7 +16,15 @@
     .page-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:20px}
     h1{margin:0 0 6px;font-size:26px}
     .subtitle{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
-    .status-badge{background:#ecfdf5;color:#166534;border:1px solid #bbf7d0;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:600}
+    .status-control{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600}
+    .switch{position:relative;display:inline-block;width:44px;height:24px}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:999px;transition:.2s}
+    .slider:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+    .switch input:checked + .slider{background:#22c55e}
+    .switch input:checked + .slider:before{transform:translateX(20px)}
+    .status-text{min-width:150px;color:#166534}
+    .status-text.inactive{color:#6b7280}
     .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
     .card-header{padding:18px 20px;border-bottom:1px solid var(--border);background:#fbfcfe}
     .card-header h2{margin:0 0 4px;font-size:17px}
@@ -117,7 +125,13 @@
       <h1>Task Email Alert Configuration</h1>
       <p class="subtitle">Configure overdue task notifications for selected main phases, subphases and individual tasks.</p>
     </div>
-    <div class="status-badge">● Notification control active</div>
+    <div class="status-control">
+      <span id="notificationStatusText" class="status-text">Notification control active</span>
+      <label class="switch" title="Turn notification control on or off">
+        <input type="checkbox" id="notificationControlToggle" checked aria-label="Notification control">
+        <span class="slider"></span>
+      </label>
+    </div>
   </div>
 
   <form id="alertForm">
@@ -592,6 +606,18 @@ nextLogPage.addEventListener('click', () => {
 });
 
 renderLog();
+
+
+const notificationControlToggle = document.getElementById('notificationControlToggle');
+const notificationStatusText = document.getElementById('notificationStatusText');
+
+notificationControlToggle.addEventListener('change', () => {
+  const active = notificationControlToggle.checked;
+  notificationStatusText.textContent = active
+    ? 'Notification control active'
+    : 'Notification control inactive';
+  notificationStatusText.classList.toggle('inactive', !active);
+});
 
 </script>
 </body>
