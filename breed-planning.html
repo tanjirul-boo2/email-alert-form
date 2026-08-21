@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breed Planning Card View</title>
+<style>
+:root{
+  --bg:#f7f8fb; --panel:#fff; --border:#d9dee8; --text:#111827;
+  --muted:#6b7280; --accent:#ff9800; --blue:#3b82f6; --column:#eef1f5;
+  --purple:#8b5cf6;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+.topbar{height:68px;background:#fff1d7;display:flex;align-items:center;padding:0 22px;gap:28px;border-bottom:1px solid #f0dfbf}
+.brand{font-size:30px;font-weight:800;color:#6d1b2c;margin-right:8px}
+.nav-item{font-size:13px;font-weight:600}.hello{margin-left:auto;color:#777;font-size:13px}
+.page{padding:28px 34px}
+.frame{background:#fff;border:1px solid var(--border);border-radius:8px;padding:34px 16px 20px}
+.planner-head{display:flex;align-items:center;gap:14px;border:1px solid var(--border);border-radius:8px;padding:20px 22px;margin-bottom:18px;flex-wrap:wrap}
+.title-wrap{min-width:300px;margin-right:auto}
+.title-wrap h1{margin:0 0 4px;font-size:22px}.title-wrap p{margin:0;color:var(--muted);font-size:12px}
+.toggle{display:flex;border:1px solid var(--border);border-radius:22px;overflow:hidden}
+.toggle button{border:0;background:#fff;padding:10px 15px;font-weight:700}
+.toggle .active{background:var(--accent);color:#fff;border-radius:20px}
+.navigator{display:flex;gap:8px}
+.circle-btn{width:38px;height:38px;border:1px solid var(--border);border-radius:50%;background:#fff;font-size:20px;cursor:pointer}
+.date-control{position:relative}
+.date-btn{height:42px;min-width:310px;border:1px solid var(--border);border-radius:22px;background:#fff;padding:0 12px;display:flex;align-items:center;gap:9px;cursor:pointer}
+.date-text{font-size:12px}
+.week-badge{margin-left:auto;border:1px solid #b76cff;background:#faf5ff;color:#7e22ce;border-radius:14px;padding:5px 9px;font-size:11px;font-weight:600}
+.view-mode,.phase-select{height:42px;border:1px solid var(--border);border-radius:8px;background:#fff;padding:0 12px}
+.search{height:42px;border:1px solid var(--border);border-radius:22px;padding:0 14px}
+.icon-btn{width:42px;height:42px;border:1px solid var(--border);border-radius:8px;background:#fff}
+
+.calendar-pop{position:absolute;top:48px;left:0;width:365px;background:#fff;border:1px solid var(--border);border-radius:6px;box-shadow:0 12px 32px rgba(15,23,42,.18);padding:16px;z-index:20;display:none}
+.calendar-pop.show{display:block}
+.calendar-top{display:grid;grid-template-columns:36px 1fr 36px;align-items:center;margin-bottom:16px}
+.calendar-title{text-align:center;font-size:17px;font-weight:700;color:#2b2f4a}
+.calendar-nav{border:0;background:#fff;font-size:24px;cursor:pointer;color:#5b647a}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.calendar-weekdays{margin-bottom:6px;color:#737990;font-size:12px;text-align:center}
+.calendar-day{height:38px;border:0;border-radius:4px;background:#f5f6f8;color:#2e344b;cursor:pointer;font-size:12px}
+.calendar-day.outside{background:transparent;color:#a9afbd}
+.calendar-day.in-range{background:#efe7ff;color:#8b5cf6}
+.calendar-day.range-start,.calendar-day.range-end{background:var(--purple);color:#fff;font-weight:700}
+.calendar-day.today{background:#60a5fa;color:#fff;font-weight:700}
+.calendar-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+.calendar-actions button{min-width:118px;border:1px solid var(--border);border-radius:20px;padding:10px 14px;background:#fff;cursor:pointer;font-weight:600}
+.calendar-actions .apply{background:#211747;color:#fff;border-color:#211747}
+.calendar-actions .clear{color:#ff5b79}
+
+.mode-note{font-size:12px;color:var(--muted);margin:0 0 12px}
+.planning-grid{display:grid;grid-template-columns:repeat(7,minmax(230px,230px));gap:12px;overflow-x:auto;overflow-y:hidden;border-top:1px solid var(--border);padding-top:14px;padding-bottom:14px;width:100%;scrollbar-gutter:stable;scroll-behavior:smooth}
+.day-col{background:var(--column);min-height:520px;border:1px solid #d7dce4}
+.day-head{margin:16px 12px;background:#fff;border-radius:22px;padding:11px 14px;font-weight:700;display:flex;align-items:center;justify-content:space-between}
+.day-head.today{background:var(--blue);color:#fff}
+.count{width:28px;height:28px;border-radius:50%;border:1px solid #f4a11a;display:flex;align-items:center;justify-content:center;font-size:12px;color:#ef7d00;background:#fff}
+
+.card{
+  position:relative;
+  background:#fff;
+  margin:0 12px 12px;
+  padding:14px 14px 10px;
+  border-radius:8px;
+  box-shadow:0 3px 10px rgba(0,0,0,.07);
+  font-size:12px;
+  line-height:1.42;
+  overflow:hidden;
+  min-height:275px;
+}
+.card:after{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:0;
+  height:0;
+  border-top:12px solid #aeb4bf;
+  border-left:12px solid transparent;
+}
+.card h3{
+  margin:0 0 8px;
+  font-size:13px;
+  font-weight:700;
+}
+.card-desc{
+  white-space:normal;
+  margin-bottom:10px;
+}
+.card-meta{
+  margin-top:6px;
+  color:#273142;
+}
+.card-meta strong{
+  font-weight:400;
+  color:#111827;
+}
+.card-footer{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid #e4e7ec;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.people-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  min-width:48px;
+  padding:5px 10px;
+  border-radius:16px;
+  background:#ecfdf3;
+  border:1px solid #a7e3b5;
+  color:#166534;
+  font-weight:700;
+}
+.avatar{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#35b6d7;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:700;
+  box-shadow:0 2px 4px rgba(0,0,0,.12);
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">breed</div>
+  <div class="nav-item">CUSTOMERS</div><div class="nav-item">PROJECTS</div><div class="nav-item">PLANNING LINES</div>
+  <div class="nav-item">SALES</div><div class="nav-item">PURCHASE</div><div class="nav-item">MESSAGE VIEW</div>
+  <div class="nav-item">TABLES</div><div class="nav-item">SYSTEM</div>
+  <div class="hello">Hello verkoop</div>
+</div>
+
+<div class="page">
+  <div class="frame">
+    <div class="planner-head">
+      <div class="title-wrap">
+        <h1>Related Planning Data</h1>
+        <p>All project planning lines are listed here. Drag cards between date columns.</p>
+      </div>
+
+      <div class="toggle">
+        <button>List view</button>
+        <button class="active">Card view</button>
+      </div>
+
+      <div class="date-control">
+        <button id="dateBtn" class="date-btn">
+          <span>📅</span>
+          <span id="dateBtnText" class="date-text">Aug 17, 2026 - Aug 23, 2026</span>
+          <span id="weekBadge" class="week-badge">Week 34</span>
+        </button>
+
+        <div id="calendarPop" class="calendar-pop">
+          <div class="calendar-top">
+            <button id="calPrev" class="calendar-nav">‹</button>
+            <div id="calTitle" class="calendar-title">August 2026</div>
+            <button id="calNext" class="calendar-nav">›</button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+          <div class="calendar-actions">
+            <button id="clearBtn" class="clear">Clear</button>
+            <button id="applyBtn" class="apply">Apply</button>
+          </div>
+        </div>
+      </div>
+
+      <select id="viewMode" class="view-mode">
+        <option value="day">Day</option>
+        <option value="week" selected>Week</option>
+        <option value="month">Month</option>
+      </select>
+
+      <button class="icon-btn">⌯</button>
+      <select class="phase-select"><option>Please select</option></select>
+      <button class="icon-btn">⚙</button>
+      <input class="search" type="search" placeholder="Search">
+    </div>
+
+    
+    <div id="planningGrid" class="planning-grid"></div>
+  </div>
+</div>
+
+<script>
+const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const monthFull=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+let currentAnchor=new Date(2026,7,21);
+let calendarCursor=new Date(2026,7,1);
+let selectedStart=new Date(2026,7,17);
+let selectedEnd=new Date(2026,7,23);
+let tempStart=new Date(selectedStart);
+let tempEnd=new Date(selectedEnd);
+
+const planningGrid=document.getElementById('planningGrid');
+const viewMode=document.getElementById('viewMode');
+const calendarPop=document.getElementById('calendarPop');
+const calendarGrid=document.getElementById('calendarGrid');
+const calTitle=document.getElementById('calTitle');
+
+function sameDate(a,b){
+  return a&&b&&a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
+}
+function cleanDate(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+function pretty(d){return `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`}
+function isoWeek(d){
+  const x=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  const day=x.getUTCDay()||7;
+  x.setUTCDate(x.getUTCDate()+4-day);
+  const y0=new Date(Date.UTC(x.getUTCFullYear(),0,1));
+  return Math.ceil((((x-y0)/86400000)+1)/7);
+}
+function startOfWeekMonday(d){
+  const x=new Date(d);
+  const diff=(x.getDay()+6)%7;
+  x.setDate(x.getDate()-diff);
+  return x;
+}
+function updateDateButton(){
+  if(selectedStart && selectedEnd){
+    document.getElementById('dateBtnText').textContent=`${pretty(selectedStart)} - ${pretty(selectedEnd)}`;
+    document.getElementById('weekBadge').textContent=`Week ${isoWeek(selectedStart)}`;
+  }
+}
+function renderCalendar(){
+  calendarGrid.innerHTML='';
+  calTitle.textContent=`${monthFull[calendarCursor.getMonth()]} ${calendarCursor.getFullYear()}`;
+
+  const first=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),1);
+  const offset=(first.getDay()+6)%7;
+  const start=new Date(first);
+  start.setDate(first.getDate()-offset);
+
+  for(let i=0;i<42;i++){
+    const d=new Date(start);
+    d.setDate(start.getDate()+i);
+
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.textContent=d.getDate();
+    btn.className='calendar-day';
+
+    if(d.getMonth()!==calendarCursor.getMonth()) btn.classList.add('outside');
+
+    const dd=cleanDate(d);
+    const s=tempStart?cleanDate(tempStart):null;
+    const e=tempEnd?cleanDate(tempEnd):null;
+
+    if(s&&e&&dd>s&&dd<e) btn.classList.add('in-range');
+    if(s&&sameDate(dd,s)) btn.classList.add('range-start');
+    if(e&&sameDate(dd,e)) btn.classList.add('range-end');
+    if(sameDate(dd,new Date(2026,7,21))) btn.classList.add('today');
+
+    btn.onclick=()=>{
+      if(!tempStart || (tempStart&&tempEnd)){
+        tempStart=new Date(d);
+        tempEnd=null;
+      }else{
+        if(d<tempStart){
+          tempEnd=new Date(tempStart);
+          tempStart=new Date(d);
+        }else{
+          tempEnd=new Date(d);
+        }
+      }
+      renderCalendar();
+    };
+
+    calendarGrid.appendChild(btn);
+  }
+}
+function renderPlanning(){
+  planningGrid.innerHTML='';
+  const mode=viewMode.value;
+
+  let dates=[];
+  if(mode==='day'){
+    dates=[new Date(currentAnchor)];
+    planningGrid.style.gridTemplateColumns='minmax(260px,1fr)';
+    
+  }else if(mode==='week'){
+    const start=startOfWeekMonday(currentAnchor);
+    for(let i=0;i<7;i++){const d=new Date(start);d.setDate(start.getDate()+i);dates.push(d)}
+    planningGrid.style.gridTemplateColumns='repeat(7,minmax(230px,230px))';
+    
+  }else{
+    const y=currentAnchor.getFullYear(),m=currentAnchor.getMonth();
+    const last=new Date(y,m+1,0).getDate();
+    for(let i=1;i<=last;i++) dates.push(new Date(y,m,i));
+    planningGrid.style.gridTemplateColumns=`repeat(${dates.length}, minmax(230px,230px))`;
+    
+  }
+
+  dates.forEach((d,idx)=>{
+    const col=document.createElement('div'); col.className='day-col';
+    const head=document.createElement('div'); head.className='day-head'+(sameDate(d,new Date(2026,7,21))?' today':'');
+    head.innerHTML=`<span>${dayNames[d.getDay()]} ${d.getDate()} ${monthNames[d.getMonth()]}</span><span class="count">${(idx%3)+1}</span>`;
+    col.appendChild(head);
+
+    const card=document.createElement('div'); card.className='card';
+    const visualCards = [
+      {
+        title:'Kemp - Wester - 1247',
+        lines:[
+          'KLANT ZELF -',
+          'Kamer ontruimen',
+          '- Radiatoren verwijderen en afvoeren',
+          '- Grenen vloer verwijderen en afvoeren',
+          '- Vochtprobleem aanbouw aanpakken',
+          '- Cementdekvloer waar nodig aansmeren'
+        ],
+        span:8,
+        people:1,
+        avatar:'AR'
+      },
+      {
+        title:'de Groot - 560',
+        lines:[
+          'Werkvoorbereiding',
+          'Leiding frezen - na de bouwvak',
+          '- Materiaal controleren',
+          '- Werkplek voorbereiden',
+          '- Afstemming met uitvoerder'
+        ],
+        span:3,
+        people:0,
+        avatar:'MH'
+      },
+      {
+        title:'Van Dijk - 890',
+        lines:[
+          'AFBOUW -',
+          'Wanden voorbereiden',
+          '- Primer aanbrengen',
+          '- Schilderwerk controleren',
+          '- Opleverpunten verwerken'
+        ],
+        span:5,
+        people:2,
+        avatar:'JV'
+      }
+    ];
+
+    const v = visualCards[(d.getDate()+idx)%visualCards.length];
+    const startDate = `${String(d.getDate()).padStart(2,'0')} ${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+    const endDateObj = new Date(d);
+    endDateObj.setDate(endDateObj.getDate()+v.span);
+    const endDate = `${String(endDateObj.getDate()).padStart(2,'0')} ${monthNames[endDateObj.getMonth()]} ${endDateObj.getFullYear()}`;
+
+    card.innerHTML=`
+      <h3>${v.title}</h3>
+      <div class="card-desc">${v.lines.join('<br>')}</div>
+      <div class="card-meta"><strong>Date:</strong>&nbsp; ${startDate} - ${endDate}</div>
+      <div class="card-meta"><strong>Start time:</strong>&nbsp; 12:00 PM</div>
+      <div class="card-meta"><strong>End time:</strong>&nbsp; 12:00 PM</div>
+      <div class="card-footer">
+        <span class="people-pill">👥 ${v.people}</span>
+        <span class="avatar">${v.avatar}</span>
+      </div>`;
+    col.appendChild(card);
+
+    planningGrid.appendChild(col);
+  });
+}
+
+document.getElementById('dateBtn').onclick=()=>{
+  tempStart=selectedStart?new Date(selectedStart):null;
+  tempEnd=selectedEnd?new Date(selectedEnd):null;
+  calendarCursor=tempStart?new Date(tempStart.getFullYear(),tempStart.getMonth(),1):new Date();
+  renderCalendar();
+  calendarPop.classList.toggle('show');
+};
+document.getElementById('calPrev').onclick=()=>{calendarCursor.setMonth(calendarCursor.getMonth()-1);renderCalendar()};
+document.getElementById('calNext').onclick=()=>{calendarCursor.setMonth(calendarCursor.getMonth()+1);renderCalendar()};
+document.getElementById('clearBtn').onclick=()=>{tempStart=null;tempEnd=null;selectedStart=null;selectedEnd=null;document.getElementById('dateBtnText').textContent='Select date or date range';document.getElementById('weekBadge').textContent='';renderCalendar()};
+document.getElementById('applyBtn').onclick=()=>{
+  if(!tempStart)return;
+  selectedStart=new Date(tempStart);
+  selectedEnd=tempEnd?new Date(tempEnd):new Date(tempStart);
+  currentAnchor=new Date(selectedStart);
+  updateDateButton();
+  calendarPop.classList.remove('show');
+  renderPlanning();
+};
+viewMode.onchange=renderPlanning;
+
+updateDateButton();
+renderCalendar();
+renderPlanning();
+</script>
+</body>
+</html>
