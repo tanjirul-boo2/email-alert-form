@@ -26,6 +26,8 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:
 .navigator{display:flex;gap:8px}
 .circle-btn{width:38px;height:38px;border:1px solid var(--border);border-radius:50%;background:#fff;font-size:20px;cursor:pointer}
 .date-control{position:relative}
+.today-btn{height:42px;border:1px solid var(--border);border-radius:22px;background:#fff;padding:0 16px;font-weight:700;cursor:pointer}
+.today-btn:hover{background:#f7f8fb}
 .date-btn{height:42px;min-width:310px;border:1px solid var(--border);border-radius:22px;background:#fff;padding:0 12px;display:flex;align-items:center;gap:9px;cursor:pointer}
 .date-text{font-size:12px}
 .week-badge{margin-left:auto;border:1px solid #b76cff;background:#faf5ff;color:#7e22ce;border-radius:14px;padding:5px 9px;font-size:11px;font-weight:600}
@@ -153,6 +155,8 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:
         <button class="active">Card view</button>
       </div>
 
+      <button id="todayBtn" class="today-btn" type="button">Today</button>
+
       <div class="date-control">
         <button id="dateBtn" class="date-btn">
           <span>📅</span>
@@ -212,6 +216,8 @@ const calendarPop=document.getElementById('calendarPop');
 const calendarGrid=document.getElementById('calendarGrid');
 const calTitle=document.getElementById('calTitle');
 
+const today = cleanDate(new Date());
+
 function sameDate(a,b){
   return a&&b&&a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
 }
@@ -263,7 +269,7 @@ function renderCalendar(){
     if(s&&e&&dd>s&&dd<e) btn.classList.add('in-range');
     if(s&&sameDate(dd,s)) btn.classList.add('range-start');
     if(e&&sameDate(dd,e)) btn.classList.add('range-end');
-    if(sameDate(dd,new Date(2026,7,21))) btn.classList.add('today');
+    if(sameDate(dd,today)) btn.classList.add('today');
 
     btn.onclick=()=>{
       if(!tempStart || (tempStart&&tempEnd)){
@@ -307,7 +313,8 @@ function renderPlanning(){
 
   dates.forEach((d,idx)=>{
     const col=document.createElement('div'); col.className='day-col';
-    const head=document.createElement('div'); head.className='day-head'+(sameDate(d,new Date(2026,7,21))?' today':'');
+    col.dataset.date = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const head=document.createElement('div'); head.className='day-head'+(sameDate(d,today)?' today':'');
     head.innerHTML=`<span>${dayNames[d.getDay()]} ${d.getDate()} ${monthNames[d.getMonth()]}</span><span class="count">${(idx%3)+1}</span>`;
     col.appendChild(head);
 
@@ -397,6 +404,38 @@ document.getElementById('applyBtn').onclick=()=>{
   renderPlanning();
 };
 viewMode.onchange=renderPlanning;
+
+function scrollToToday(){
+  currentAnchor = new Date(today);
+  selectedStart = new Date(today);
+  if(viewMode.value==='week'){
+    const start = startOfWeekMonday(today);
+    selectedStart = new Date(start);
+    selectedEnd = new Date(start);
+    selectedEnd.setDate(start.getDate()+6);
+  }else if(viewMode.value==='month'){
+    selectedStart = new Date(today.getFullYear(), today.getMonth(), 1);
+    selectedEnd = new Date(today.getFullYear(), today.getMonth()+1, 0);
+  }else{
+    selectedEnd = new Date(today);
+  }
+
+  calendarCursor = new Date(today.getFullYear(), today.getMonth(), 1);
+  updateDateButton();
+  renderCalendar();
+  renderPlanning();
+  calendarPop.classList.remove('show');
+
+  requestAnimationFrame(()=>{
+    const key = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    const target = planningGrid.querySelector(`[data-date="${key}"]`);
+    if(target){
+      target.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+    }
+  });
+}
+
+document.getElementById('todayBtn').onclick=scrollToToday;
 
 // Make the phase dropdown 80% wider than its current rendered width.
 const phaseSelect = document.querySelector('.phase-select');
