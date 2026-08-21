@@ -398,6 +398,13 @@ document.getElementById('applyBtn').onclick=()=>{
 };
 viewMode.onchange=renderPlanning;
 
+// Make the phase dropdown 80% wider than its current rendered width.
+const phaseSelect = document.querySelector('.phase-select');
+if (phaseSelect) {
+  const currentWidth = phaseSelect.getBoundingClientRect().width;
+  phaseSelect.style.width = `${Math.round(currentWidth * 1.8)}px`;
+}
+
 updateDateButton();
 renderCalendar();
 renderPlanning();
