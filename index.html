@@ -32,6 +32,15 @@
     .card-body{padding:20px}
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
     .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .followup-box{margin-top:16px;padding:14px;border:1px solid var(--border);border-radius:10px;background:#fafbfd}
+    .followup-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+    .followup-title{font-size:13px;font-weight:700}
+    .followup-row{display:flex;align-items:center;justify-content:flex-start;gap:8px}
+    .followup-row input{padding-left:12px;padding-right:12px}
+    .followup-unit{font-size:13px;color:var(--text)}
+    .followup-toggle-row{display:flex;align-items:center;gap:8px;font-size:13px}
+    .followup-help{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.45}
+    
     .field{display:flex;flex-direction:column;gap:7px}
     .field.full{grid-column:1/-1}
     label{font-size:13px;font-weight:600}
@@ -147,7 +156,7 @@
         <div class="grid-3">
           <div class="field">
             <label class="required">Send Notification</label>
-            <select>
+            <select id="sendNotification">
               <option>Daily</option>
               <option>Weekdays only</option>
               <option>Weekly</option>
@@ -157,6 +166,29 @@
           <div class="field">
             <label class="required">Send Time</label>
             <input type="time" value="08:00">
+          </div>
+        </div>
+        <div class="followup-box">
+          <div class="followup-head">
+            <div>
+              <div class="followup-title">Follow-up Notifications</div>
+              <div class="hint">Send additional reminders after the first overdue notification if the task is still not done.</div>
+            </div>
+            <label class="followup-toggle-row">
+              <input type="checkbox" id="followUpEnabled">
+              <span>Enable follow-up</span>
+            </label>
+          </div>
+
+          <div id="followUpSettings" style="display:none;">
+            <div class="followup-row">
+              <input id="followUpDays" type="number" style="text-align:right;" min="1" value="5" aria-label="Follow-up after days">
+              <span class="followup-unit">Days</span>
+            </div>
+
+            <div class="followup-help">
+              The follow-up period is calculated from the first notification date. A follow-up email is sent only if the task is still overdue and not done on the configured day.
+            </div>
           </div>
         </div>
       </div>
@@ -687,6 +719,26 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 });
+
+
+const followUpEnabled = document.getElementById('followUpEnabled');
+const followUpSettings = document.getElementById('followUpSettings');
+
+followUpEnabled.addEventListener('change', () => {
+  followUpSettings.style.display = followUpEnabled.checked ? '' : 'none';
+});
+
+
+
+function syncFollowUpDaysWidth(){
+  const sendNotification = document.getElementById('sendNotification');
+  const followUpDays = document.getElementById('followUpDays');
+  if(sendNotification && followUpDays){
+    followUpDays.style.width = (sendNotification.getBoundingClientRect().width * 0.5) + 'px';
+  }
+}
+window.addEventListener('load', syncFollowUpDaysWidth);
+window.addEventListener('resize', syncFollowUpDaysWidth);
 
 </script>
 </body>
