@@ -281,8 +281,8 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:
       <div class="date-control">
         <button id="dateBtn" class="date-btn">
           <span>📅</span>
-          <span id="dateBtnText" class="date-text">Aug 17, 2026 - Aug 23, 2026</span>
-          <span id="weekBadge" class="week-badge">Week 34</span>
+          <span id="dateBtnText" class="date-text">Current week</span>
+          <span id="weekBadge" class="week-badge"></span>
         </button>
 
         <div id="calendarPop" class="calendar-pop">
@@ -303,9 +303,9 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:
       </div>
 
       <select id="viewMode" class="view-mode">
-        <option value="day">Day</option>
         <option value="week" selected>Week</option>
         <option value="month">Month</option>
+        <option value="quarter">Quarter</option>
       </select>
 
       <button id="filterBtn" class="icon-btn filter-btn" type="button" aria-label="Open planning filters" title="Filters">
@@ -418,10 +418,11 @@ const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const monthFull=['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-let currentAnchor=new Date(2026,7,21);
+let currentAnchor=cleanDate(new Date());
 let calendarCursor=new Date(2026,7,1);
-let selectedStart=new Date(2026,7,17);
-let selectedEnd=new Date(2026,7,23);
+let selectedStart=startOfWeekMonday(currentAnchor);
+let selectedEnd=new Date(selectedStart);
+selectedEnd.setDate(selectedStart.getDate()+6);
 let tempStart=new Date(selectedStart);
 let tempEnd=new Date(selectedEnd);
 
@@ -518,12 +519,16 @@ function renderPlanning(){
     for(let i=0;i<7;i++){const d=new Date(start);d.setDate(start.getDate()+i);dates.push(d)}
     planningGrid.style.gridTemplateColumns='repeat(7,minmax(230px,230px))';
     
-  }else{
+  }else if(mode==='month'){
     const y=currentAnchor.getFullYear(),m=currentAnchor.getMonth();
     const last=new Date(y,m+1,0).getDate();
     for(let i=1;i<=last;i++) dates.push(new Date(y,m,i));
     planningGrid.style.gridTemplateColumns=`repeat(${dates.length}, minmax(230px,230px))`;
-    
+  }else if(mode==='quarter'){
+    const y=currentAnchor.getFullYear(), startMonth=Math.floor(currentAnchor.getMonth()/3)*3;
+    const start=new Date(y,startMonth,1), end=new Date(y,startMonth+3,0);
+    for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)) dates.push(new Date(d));
+    planningGrid.style.gridTemplateColumns=`repeat(${dates.length}, minmax(230px,230px))`;
   }
 
   dates.forEach((d,idx)=>{
@@ -639,9 +644,10 @@ function syncSelectionToView(anchorDate=currentAnchor){
   }else if(viewMode.value==='month'){
     selectedStart = new Date(anchor.getFullYear(), anchor.getMonth(), 1);
     selectedEnd = new Date(anchor.getFullYear(), anchor.getMonth()+1, 0);
-  }else{
-    selectedStart = new Date(anchor);
-    selectedEnd = new Date(anchor);
+  }else if(viewMode.value==='quarter'){
+    const startMonth=Math.floor(anchor.getMonth()/3)*3;
+    selectedStart = new Date(anchor.getFullYear(), startMonth, 1);
+    selectedEnd = new Date(anchor.getFullYear(), startMonth+3, 0);
   }
 
   calendarCursor = new Date(currentAnchor.getFullYear(), currentAnchor.getMonth(), 1);
@@ -666,8 +672,8 @@ function shiftPeriod(step){
     base.setDate(base.getDate() + (step * 7));
   }else if(viewMode.value==='month'){
     base.setMonth(base.getMonth() + step);
-  }else{
-    base.setDate(base.getDate() + step);
+  }else if(viewMode.value==='quarter'){
+    base.setMonth(base.getMonth() + (step * 3));
   }
 
   syncSelectionToView(base);
