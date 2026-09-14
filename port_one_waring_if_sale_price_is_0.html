@@ -26,10 +26,10 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
 .summary{margin:0 16px;border:1px solid #d1dae4;display:grid;grid-template-columns:520px repeat(4,1fr);align-items:stretch}.summary .addjob{padding:5px}.summary .totalcell{display:flex;align-items:center;justify-content:flex-end;gap:8px;border-left:1px solid #e1e6ec;padding:5px 8px;background:#fff}.totalbox{display:flex}.totalbox span,.totalbox input{height:36px;border:1px solid var(--line);background:#f7f8fa}.totalbox span{width:28px;display:flex;align-items:center;justify-content:center;border-radius:9px 0 0 9px;border-right:0}.totalbox input{width:76px;border-radius:0 9px 9px 0;text-align:right;padding-right:8px;color:#8c99ad}
 .jobs{margin:0 16px}.job{border:1px solid #d6dce4;border-top:0;margin-bottom:10px}.job-head{display:grid;grid-template-columns:120px 210px 140px 280px 160px 1fr;gap:10px;align-items:center;background:#d9eef7;padding:7px}.status-open,.status-approved,.status-cancelled{color:#fff;border:none;border-radius:9px;padding:11px;font-weight:700}.status-open{background:var(--teal);color:#153c36}.status-approved{background:var(--purple)}.status-cancelled{background:var(--red)}
 .job-tools{display:flex;align-items:center;justify-content:flex-end;gap:12px}.ref{background:#3d97f3;color:#fff;border-radius:7px;padding:5px 8px;font-weight:700}.tool{color:#4b97ec;font-size:16px}.warn{font-size:20px;color:#788ca4}.tool.purple{color:#8969ef}.tool.del{color:#ff6683}
-.lines{background:#fff}.line{display:grid;grid-template-columns:140px 208px 44px 112px 82px 92px 92px 92px 92px 180px 92px 92px 60px;gap:8px;align-items:center;padding:7px;border-top:1px solid #e1e6ec}.desc{color:#3693f4;padding-left:8px;line-height:1.35}.small{height:38px}.currency{display:flex}.currency b{width:24px;height:38px;border:1px solid var(--line);border-right:0;border-radius:9px 0 0 9px;display:flex;align-items:center;justify-content:center;font-weight:400}.currency input{width:100%;height:38px;border:1px solid var(--line);border-radius:0 9px 9px 0;text-align:right;padding-right:8px}.field-x-wrap.hidden{visibility:hidden;pointer-events:none}.d-input[disabled]{background:var(--readonly);color:#8a98ad}.d-input:not([disabled]){background:white;color:#182033}.row-actions{display:flex;justify-content:flex-end;gap:10px}.round{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:0;color:white;background:#3d97f3}.trash{width:24px;height:24px;border-radius:7px;border:0;background:#ffd4df;color:#ff527a}.comment{color:#9a72f5;font-size:20px;text-align:center}.disabled-line input,.disabled-line select{background:#f3f4f6;color:#a4adba}.footer{padding:0 30px 20px;color:#8190a6;font-size:11px}.footer a{color:#3d97f3;text-decoration:none}
+.lines{background:#fff}.line{display:grid;grid-template-columns:140px 208px 44px 112px 82px 92px 92px 92px 92px 180px 92px 92px 60px;gap:8px;align-items:center;padding:7px;border-top:1px solid #e1e6ec}.desc{color:#3693f4;padding-left:8px;line-height:1.35}.small{height:38px}.currency{display:flex}.currency b{width:24px;height:38px;border:1px solid var(--line);border-right:0;border-radius:9px 0 0 9px;display:flex;align-items:center;justify-content:center;font-weight:400}.currency input{width:100%;height:38px;border:1px solid var(--line);border-radius:0 9px 9px 0;text-align:right;padding-right:8px}.field-x-wrap.hidden{visibility:hidden;pointer-events:none}.d-input[disabled]{background:var(--readonly);color:#8a98ad}.d-input{background:var(--readonly);color:#8a98ad}.d-input:not([disabled]){background:var(--readonly);color:#8a98ad}.row-actions{display:flex;justify-content:flex-end;gap:10px}.round{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:0;color:white;background:#3d97f3}.trash{width:24px;height:24px;border-radius:7px;border:0;background:#ffd4df;color:#ff527a}.comment{color:#9a72f5;font-size:20px;text-align:center}.disabled-line input,.disabled-line select{background:#f3f4f6;color:#a4adba}.footer{padding:0 30px 20px;color:#8190a6;font-size:11px}.footer a{color:#3d97f3;text-decoration:none}
 
 /* Warning dialog */
-.warning-overlay{position:fixed;inset:0;background:rgba(25,31,39,.58);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}.warning-overlay.open{display:flex}.warning-dialog{width:420px;max-width:calc(100vw - 32px);background:#fff;border-radius:22px;box-shadow:0 20px 55px rgba(0,0,0,.28);padding:28px 28px 27px;animation:dialogIn .15s ease-out}.warning-icon-box{width:64px;height:64px;border-radius:17px;background:#fff7ef;display:flex;align-items:center;justify-content:center;margin-bottom:17px}.warning-triangle{position:relative;width:31px;height:27px}.warning-triangle:before{content:"";position:absolute;left:1px;top:1px;width:28px;height:24px;border:2px solid #ff9d00;border-radius:6px;transform:rotate(60deg) skewY(-30deg);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}.warning-symbol{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ff9d00;font-weight:800;font-size:18px;z-index:2;padding-top:3px}.warning-dialog h2{margin:0 0 12px;font-size:26px;line-height:1.2;color:#1d2433}.warning-dialog p{margin:0;color:#7c8799;font-size:15px;line-height:1.55}.warning-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}.warning-actions button{min-width:110px;height:44px;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer}.warning-continue{border:0;background:#ffb313;color:#fff;box-shadow:0 8px 20px rgba(255,179,19,.25)}.warning-cancel{border:1px solid #e0e4ea;background:#fff;color:#374151}@keyframes dialogIn{from{opacity:0;transform:translateY(7px) scale(.98)}to{opacity:1;transform:none}}
+.warning-overlay{position:fixed;inset:0;background:rgba(25,31,39,.58);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}.warning-overlay.open{display:flex}.warning-dialog{width:420px;max-width:calc(100vw - 32px);background:#fff;border-radius:22px;box-shadow:0 20px 55px rgba(0,0,0,.28);padding:28px 28px 27px;animation:dialogIn .15s ease-out}.warning-icon-box{width:64px;height:64px;border-radius:17px;background:#fff7ef;display:flex;align-items:center;justify-content:center;margin-bottom:17px;overflow:hidden}.warning-icon-box img{width:64px;height:64px;display:block;object-fit:contain}.warning-dialog h2{margin:0 0 12px;font-size:26px;line-height:1.2;color:#1d2433}.warning-dialog p{margin:0;color:#7c8799;font-size:15px;line-height:1.55}.warning-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}.warning-actions button{min-width:110px;height:44px;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer}.warning-continue{border:0;background:#ffb313;color:#fff;box-shadow:0 8px 20px rgba(255,179,19,.25)}.warning-cancel{border:1px solid #e0e4ea;background:#fff;color:#374151}@keyframes dialogIn{from{opacity:0;transform:translateY(7px) scale(.98)}to{opacity:1;transform:none}}
 @media(max-width:1300px){body{font-size:12px}.shell{width:98%;padding-left:12px;padding-right:12px}.line{grid-template-columns:120px 175px 40px 102px 76px 82px 82px 82px 82px 155px 82px 82px 54px}.job-head{grid-template-columns:110px 190px 130px 245px 150px 1fr}.summary{grid-template-columns:460px repeat(4,1fr)}}
 
 
@@ -42,6 +42,10 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
 .doc-page{display:grid;grid-template-columns:minmax(900px,1fr) 390px;gap:18px;padding:0 34px 34px;margin-top:-4px}.doc-sheet{background:#fff;border-radius:8px;box-shadow:0 4px 15px rgba(48,67,90,.14);min-height:605px;padding:34px 36px 36px}.doc-sidebar{background:#fff;border-radius:8px;box-shadow:0 4px 15px rgba(48,67,90,.14);padding:16px;min-height:605px}.letter-head{display:grid;grid-template-columns:1fr 1px 1.25fr;gap:36px;align-items:start}.vline{background:#d9e1e9;min-height:210px}.company-block{font-size:12px;line-height:1.45}.company-block h4{margin:0 0 18px;font-size:13px}.letter-brand{text-align:right;font-size:26px;font-weight:700;color:#ff4848;letter-spacing:1px}.client-address{margin-top:26px;padding-left:12px;font-size:12px;line-height:1.45}.doc-meta{display:grid;grid-template-columns:1fr 390px;gap:40px;margin-top:24px;border-top:1px solid #e7ebf0;padding-top:22px}.doc-meta h2{font-size:18px;color:#28477c;margin:0 0 10px}.date-table{display:grid;grid-template-columns:110px 1fr;row-gap:8px;font-size:12px}.intro{font-size:12px;margin:26px 0 28px}.doc-table{width:100%;border-collapse:collapse;font-size:12px}.doc-table th{font-weight:400;text-align:left;border-bottom:1px solid #cfd6de;padding:10px 0}.doc-table th:last-child,.doc-table td:last-child{text-align:right}.doc-table td{padding:12px 0;border-bottom:1px solid #d8dee5}.doc-table .total td{font-weight:700;border-bottom:none;padding-top:8px}.terms{font-size:11px;line-height:1.45;margin-top:34px}.upload-drop{margin-top:16px;height:64px;border:1px dashed #c8d3df;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}.side-top{display:grid;grid-template-columns:100px 1fr;gap:10px;padding-bottom:12px;border-bottom:1px solid #d6dde6;font-size:12px}.side-top a{color:#367ff5;text-decoration:none}.side-tabs{display:flex;gap:8px;padding:10px 0 16px}.side-tabs button{border:0;background:#fff;color:#65718a;padding:9px 12px}.side-tabs button.active{background:#f6f7fb;color:#367ff5;border-radius:5px}.history-date{font-size:12px;font-weight:700;margin:26px 0 10px}.history-item{border:1px solid #e7ebf0;border-radius:12px;padding:16px 14px;margin-bottom:2px;display:flex;justify-content:space-between;align-items:center;font-size:12px}.history-item .link{color:#367ff5}.created-toast{position:fixed;right:24px;bottom:24px;background:#1f8f63;color:#fff;padding:12px 18px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);display:none;z-index:10001;font-weight:700}.created-toast.show{display:block}
 .doc-chip{display:inline-grid;grid-template-columns:auto auto auto;align-items:stretch;border-radius:10px;overflow:hidden;margin-top:2px}.doc-chip span{padding:11px 13px;border-right:1px solid rgba(255,255,255,.55)}.doc-chip span:last-child{border-right:0}.doc-chip.pda{background:#ffbd3c}.doc-chip.pfi,.doc-chip.fda{background:#5fd3b9}.doc-chip .count{display:flex;align-items:center;justify-content:center}.doc-chip .count b{width:22px;height:22px;border-radius:50%;background:#5ecb67;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px}
 
+
+/* Exact row action icons from the supplied reference */
+.row-actions .trash,.row-actions .round{background:transparent!important;border:0!important;padding:0!important;width:24px!important;height:24px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;box-shadow:none!important;}
+.row-actions .action-img{width:24px;height:24px;display:block;object-fit:contain;}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
@@ -137,10 +141,10 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
           <div class="currency"><b>£</b><input class="readonly" value="225.00" readonly></div>
           <!-- Field X = percentage -->
           <div class="field-x-wrap"><input class="input small field-x" type="number" value="0"></div>
-          <div class="currency"><b>£</b><input value="225.00"></div>
-          <!-- Field D = Final/Invoice Total -->
-          <div class="currency"><b>£</b><input class="d-input readonly sales-price-check" value="225.00" disabled></div>
-          <div class="row-actions"><button class="trash"><i class="fa-solid fa-square"></i></button></div>
+          <div class="currency"><b>£</b><input class="sales-price-check" type="number" step="0.01" value="225.00"></div>
+          <!-- Field D = Sales Amount = Quantity × Sales Price (read-only) -->
+          <div class="currency"><b>£</b><input class="d-input readonly sales-amount" value="225.00" disabled></div>
+          <div class="row-actions"><button class="trash" type="button" aria-label="Delete line"><img class="action-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC/UlEQVR4nK2WzW5cRRCFv6rq+zOOo9jxkDgIpKBAFCGIWCC2bNjxKoi3Yc8LILFjmxVLFggiByUbiBCR7eDgv5m53VUsxpOZa3tsDJzV7VJ3nXOq6rZa3D0ARISIICJQVQAigv8CEUFFQAjCC0KgKnCy/j+QFtkQASB3HQcHB6xu/3VpAkeR9XXS2upCtgUXcaoO3Z+/wdYe7o6iV5P78AFpdc4iIv0MZfcZ/vgl7n61xDP8uAV7/dBrgmAfno7+XeIFdE9f9NZzP9s75JzPPyVHHH33LfLD8fTQx59Rff42dGdLKJNt8s4GaZj6DjhYrj7zHPn+GEbACPKjn8jndXRGsn84/541uTz5mbwzd5Dyc15+9Yhmt1uaCIC1u1RffkpKc8Lyxh2a9zYQkeUyPK2wcm+T8s41eHfznB17xC8vEN0kDRSW6FjqAEBR4uhwWppzkNtEtdKcif8jBwAihcNvvoYnNckTxcYEQomCSEW6/Qn6xUNSKEU73BUpFWEGyInIC+Aobd1iLogVjAqLoDq5t3xzSuwC6koqNVo7lgURv5xAvcYHkDVTSmHsASSSJywCLwkVMBcqq/B6gniHCwTlcgJsAmstFgFFaUlkRmQSIUG6uYYHmAgTn0xLpEaThVn1LyQIF2hbOjO8dcYyxnSA6DHqyqhNTGxEiQ5XpSlGDiebE6d74O05f2U26jdvEhJIFBAntFBoUFXq9VXMGhDFikE1gaJIM6Aw7cF8THefkbcO+gRqSCmMdn+n/HpMMoVwqqrgm/dhmKisUCYdVWooBGgm7n5IfUtAbD6munGLlEa9+ygoEA3N8A42FMKFnEDcUVPUgbGiVk9dFsPjBtVtgyJgCyUSrmMfDHsO1BXRDsFwlFCZjiyGlqmAsEBCiCwgCh+9hSCERb9Er1UfbpMf/wEjULloBMANcJAQvGmp3r+HDAQUgkCQswQzlP1XxN6rpdfEVJ0Qg2v4jVXq6/WsFKf2XPB0uOxN0cvlJ4GrEFyGiJg+FhbWQC/2N8K/ZnBmxQVUAAAAAElFTkSuQmCC" alt="" /></button></div>
         </div>
         <div class="line">
           <div class="desc">Crew Meals / Day<br>Facilities</div><input class="input small" value=""><div class="comment">▰</div>
@@ -150,9 +154,9 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
           <div class="currency"><b>£</b><input value="200.000"></div>
           <div class="currency"><b>£</b><input class="readonly" value="200.00" readonly></div>
           <div class="field-x-wrap"><input class="input small field-x" type="number" value="0"></div>
-          <div class="currency"><b>£</b><input value="200.00"></div>
-          <div class="currency"><b>£</b><input class="d-input readonly sales-price-check" value="200.00" disabled></div>
-          <div class="row-actions"><button class="trash"><i class="fa-solid fa-square"></i></button><button class="round">+</button></div>
+          <div class="currency"><b>£</b><input class="sales-price-check" type="number" step="0.01" value="200.00"></div>
+          <div class="currency"><b>£</b><input class="d-input readonly sales-amount" value="200.00" disabled></div>
+          <div class="row-actions"><button class="trash" type="button" aria-label="Delete line"><img class="action-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC/UlEQVR4nK2WzW5cRRCFv6rq+zOOo9jxkDgIpKBAFCGIWCC2bNjxKoi3Yc8LILFjmxVLFggiByUbiBCR7eDgv5m53VUsxpOZa3tsDJzV7VJ3nXOq6rZa3D0ARISIICJQVQAigv8CEUFFQAjCC0KgKnCy/j+QFtkQASB3HQcHB6xu/3VpAkeR9XXS2upCtgUXcaoO3Z+/wdYe7o6iV5P78AFpdc4iIv0MZfcZ/vgl7n61xDP8uAV7/dBrgmAfno7+XeIFdE9f9NZzP9s75JzPPyVHHH33LfLD8fTQx59Rff42dGdLKJNt8s4GaZj6DjhYrj7zHPn+GEbACPKjn8jndXRGsn84/541uTz5mbwzd5Dyc15+9Yhmt1uaCIC1u1RffkpKc8Lyxh2a9zYQkeUyPK2wcm+T8s41eHfznB17xC8vEN0kDRSW6FjqAEBR4uhwWppzkNtEtdKcif8jBwAihcNvvoYnNckTxcYEQomCSEW6/Qn6xUNSKEU73BUpFWEGyInIC+Aobd1iLogVjAqLoDq5t3xzSuwC6koqNVo7lgURv5xAvcYHkDVTSmHsASSSJywCLwkVMBcqq/B6gniHCwTlcgJsAmstFgFFaUlkRmQSIUG6uYYHmAgTn0xLpEaThVn1LyQIF2hbOjO8dcYyxnSA6DHqyqhNTGxEiQ5XpSlGDiebE6d74O05f2U26jdvEhJIFBAntFBoUFXq9VXMGhDFikE1gaJIM6Aw7cF8THefkbcO+gRqSCmMdn+n/HpMMoVwqqrgm/dhmKisUCYdVWooBGgm7n5IfUtAbD6munGLlEa9+ygoEA3N8A42FMKFnEDcUVPUgbGiVk9dFsPjBtVtgyJgCyUSrmMfDHsO1BXRDsFwlFCZjiyGlqmAsEBCiCwgCh+9hSCERb9Er1UfbpMf/wEjULloBMANcJAQvGmp3r+HDAQUgkCQswQzlP1XxN6rpdfEVJ0Qg2v4jVXq6/WsFKf2XPB0uOxN0cvlJ4GrEFyGiJg+FhbWQC/2N8K/ZnBmxQVUAAAAAElFTkSuQmCC" alt="" /></button><button class="round" type="button" aria-label="Add line"><img class="action-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAB6UlEQVR4nLWVQUsbQRSAv+1sS7QpxKImloboTQUtFZFEQaT2JNJCEPsX6sWzFE+eRBDEHtrfUHrRg95UJKigovUiCKVFFK2GYqngQnezHjYm2WRmUgN5MPBmmPe9N2/evDFc13WpkjyoFhjALLfBSsPyjsPhjWDvyuHpY4g1CF63Qk+T3tZQpcVKw6cFl4V/BhlDbhwwYfIN9DfcA368DeO7cJWdq+B3Eu+EmcR/wC82YfSbf1M5uMqB/0LPYXJfDRAZb8hk6wC+nGngaxs2R5oox+KQ0JTAx5SDLYVbsPJLbSkaYfQlDIXVcOO3YOVGAs/8sFlXRF2Yioeuk0uPLEU7P/N6LtTztBw81gfPHCDkzZu7YCrm6cvbkCpy8P0SaCuCy8R8Du86/GvhqCAc9fTaU0idaOzvlPpgqR/7BAY+e6UoIrD6FlKL8OGsZGtOIsG8nsv5ozqo9911ZRIreK35ammGwRpBxqBkADhW9jS2JoAAvIrmp74XerEJIwcaWxMsDbvrBczFZZEDjQkYf6I21oEJwES3f6mkn48kYbiCLj+dhEhRTchbrgVfl2D+sjw0FILpIWiXnFjZzwH+HjvMbgjW/9jYRU8iEIT3vZBsUTvWwgvl+hqsbKmGgmb5L+w+8Eqkqh/0LWQxoGvzJEPdAAAAAElFTkSuQmCC" alt="" /></button></div>
         </div>
       </div>
     </div>
@@ -176,9 +180,9 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
           <div class="currency"><b>£</b><input value="550.000"></div>
           <div class="currency"><b>£</b><input class="readonly" value="550.00" readonly></div>
           <div class="field-x-wrap hidden"><input class="input small field-x" type="number" value="0"></div>
-          <div class="currency"><b>£</b><input value="0"></div>
-          <div class="currency"><b>£</b><input class="d-input sales-price-check" value="0"></div>
-          <div class="row-actions"><button class="trash"><i class="fa-solid fa-square"></i></button><button class="round">+</button></div>
+          <div class="currency"><b>£</b><input class="sales-price-check" type="number" step="0.01" value="0"></div>
+          <div class="currency"><b>£</b><input class="d-input readonly sales-amount" value="0.00" disabled></div>
+          <div class="row-actions"><button class="trash" type="button" aria-label="Delete line"><img class="action-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC/UlEQVR4nK2WzW5cRRCFv6rq+zOOo9jxkDgIpKBAFCGIWCC2bNjxKoi3Yc8LILFjmxVLFggiByUbiBCR7eDgv5m53VUsxpOZa3tsDJzV7VJ3nXOq6rZa3D0ARISIICJQVQAigv8CEUFFQAjCC0KgKnCy/j+QFtkQASB3HQcHB6xu/3VpAkeR9XXS2upCtgUXcaoO3Z+/wdYe7o6iV5P78AFpdc4iIv0MZfcZ/vgl7n61xDP8uAV7/dBrgmAfno7+XeIFdE9f9NZzP9s75JzPPyVHHH33LfLD8fTQx59Rff42dGdLKJNt8s4GaZj6DjhYrj7zHPn+GEbACPKjn8jndXRGsn84/541uTz5mbwzd5Dyc15+9Yhmt1uaCIC1u1RffkpKc8Lyxh2a9zYQkeUyPK2wcm+T8s41eHfznB17xC8vEN0kDRSW6FjqAEBR4uhwWppzkNtEtdKcif8jBwAihcNvvoYnNckTxcYEQomCSEW6/Qn6xUNSKEU73BUpFWEGyInIC+Aobd1iLogVjAqLoDq5t3xzSuwC6koqNVo7lgURv5xAvcYHkDVTSmHsASSSJywCLwkVMBcqq/B6gniHCwTlcgJsAmstFgFFaUlkRmQSIUG6uYYHmAgTn0xLpEaThVn1LyQIF2hbOjO8dcYyxnSA6DHqyqhNTGxEiQ5XpSlGDiebE6d74O05f2U26jdvEhJIFBAntFBoUFXq9VXMGhDFikE1gaJIM6Aw7cF8THefkbcO+gRqSCmMdn+n/HpMMoVwqqrgm/dhmKisUCYdVWooBGgm7n5IfUtAbD6munGLlEa9+ygoEA3N8A42FMKFnEDcUVPUgbGiVk9dFsPjBtVtgyJgCyUSrmMfDHsO1BXRDsFwlFCZjiyGlqmAsEBCiCwgCh+9hSCERb9Er1UfbpMf/wEjULloBMANcJAQvGmp3r+HDAQUgkCQswQzlP1XxN6rpdfEVJ0Qg2v4jVXq6/WsFKf2XPB0uOxN0cvlJ4GrEFyGiJg+FhbWQC/2N8K/ZnBmxQVUAAAAAElFTkSuQmCC" alt="" /></button><button class="round" type="button" aria-label="Add line"><img class="action-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAB6UlEQVR4nLWVQUsbQRSAv+1sS7QpxKImloboTQUtFZFEQaT2JNJCEPsX6sWzFE+eRBDEHtrfUHrRg95UJKigovUiCKVFFK2GYqngQnezHjYm2WRmUgN5MPBmmPe9N2/evDFc13WpkjyoFhjALLfBSsPyjsPhjWDvyuHpY4g1CF63Qk+T3tZQpcVKw6cFl4V/BhlDbhwwYfIN9DfcA368DeO7cJWdq+B3Eu+EmcR/wC82YfSbf1M5uMqB/0LPYXJfDRAZb8hk6wC+nGngaxs2R5oox+KQ0JTAx5SDLYVbsPJLbSkaYfQlDIXVcOO3YOVGAs/8sFlXRF2Yioeuk0uPLEU7P/N6LtTztBw81gfPHCDkzZu7YCrm6cvbkCpy8P0SaCuCy8R8Du86/GvhqCAc9fTaU0idaOzvlPpgqR/7BAY+e6UoIrD6FlKL8OGsZGtOIsG8nsv5ozqo9911ZRIreK35ammGwRpBxqBkADhW9jS2JoAAvIrmp74XerEJIwcaWxMsDbvrBczFZZEDjQkYf6I21oEJwES3f6mkn48kYbiCLj+dhEhRTchbrgVfl2D+sjw0FILpIWiXnFjZzwH+HjvMbgjW/9jYRU8iEIT3vZBsUTvWwgvl+hqsbKmGgmb5L+w+8Eqkqh/0LWQxoGvzJEPdAAAAAElFTkSuQmCC" alt="" /></button></div>
         </div>
       </div>
     </div>
@@ -202,9 +206,9 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
           <div class="currency"><b>£</b><input disabled></div>
           <div class="currency"><b>£</b><input class="readonly" disabled></div>
           <div class="field-x-wrap"><input class="input small field-x" type="number" value="0" disabled></div>
-          <div class="currency"><b>£</b><input value="0.00" disabled></div>
-          <div class="currency"><b>£</b><input class="d-input readonly" value="0.00" disabled></div>
-          <div class="row-actions"><button class="trash"><i class="fa-solid fa-square"></i></button><button class="round">+</button></div>
+          <div class="currency"><b>£</b><input class="sales-price-check" value="0.00" disabled></div>
+          <div class="currency"><b>£</b><input class="d-input readonly sales-amount" value="0.00" disabled></div>
+          <div class="row-actions"><button class="trash" type="button" aria-label="Delete line"><img class="action-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC/UlEQVR4nK2WzW5cRRCFv6rq+zOOo9jxkDgIpKBAFCGIWCC2bNjxKoi3Yc8LILFjmxVLFggiByUbiBCR7eDgv5m53VUsxpOZa3tsDJzV7VJ3nXOq6rZa3D0ARISIICJQVQAigv8CEUFFQAjCC0KgKnCy/j+QFtkQASB3HQcHB6xu/3VpAkeR9XXS2upCtgUXcaoO3Z+/wdYe7o6iV5P78AFpdc4iIv0MZfcZ/vgl7n61xDP8uAV7/dBrgmAfno7+XeIFdE9f9NZzP9s75JzPPyVHHH33LfLD8fTQx59Rff42dGdLKJNt8s4GaZj6DjhYrj7zHPn+GEbACPKjn8jndXRGsn84/541uTz5mbwzd5Dyc15+9Yhmt1uaCIC1u1RffkpKc8Lyxh2a9zYQkeUyPK2wcm+T8s41eHfznB17xC8vEN0kDRSW6FjqAEBR4uhwWppzkNtEtdKcif8jBwAihcNvvoYnNckTxcYEQomCSEW6/Qn6xUNSKEU73BUpFWEGyInIC+Aobd1iLogVjAqLoDq5t3xzSuwC6koqNVo7lgURv5xAvcYHkDVTSmHsASSSJywCLwkVMBcqq/B6gniHCwTlcgJsAmstFgFFaUlkRmQSIUG6uYYHmAgTn0xLpEaThVn1LyQIF2hbOjO8dcYyxnSA6DHqyqhNTGxEiQ5XpSlGDiebE6d74O05f2U26jdvEhJIFBAntFBoUFXq9VXMGhDFikE1gaJIM6Aw7cF8THefkbcO+gRqSCmMdn+n/HpMMoVwqqrgm/dhmKisUCYdVWooBGgm7n5IfUtAbD6munGLlEa9+ygoEA3N8A42FMKFnEDcUVPUgbGiVk9dFsPjBtVtgyJgCyUSrmMfDHsO1BXRDsFwlFCZjiyGlqmAsEBCiCwgCh+9hSCERb9Er1UfbpMf/wEjULloBMANcJAQvGmp3r+HDAQUgkCQswQzlP1XxN6rpdfEVJ0Qg2v4jVXq6/WsFKf2XPB0uOxN0cvlJ4GrEFyGiJg+FhbWQC/2N8K/ZnBmxQVUAAAAAElFTkSuQmCC" alt="" /></button><button class="round" type="button" aria-label="Add line"><img class="action-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAB6UlEQVR4nLWVQUsbQRSAv+1sS7QpxKImloboTQUtFZFEQaT2JNJCEPsX6sWzFE+eRBDEHtrfUHrRg95UJKigovUiCKVFFK2GYqngQnezHjYm2WRmUgN5MPBmmPe9N2/evDFc13WpkjyoFhjALLfBSsPyjsPhjWDvyuHpY4g1CF63Qk+T3tZQpcVKw6cFl4V/BhlDbhwwYfIN9DfcA368DeO7cJWdq+B3Eu+EmcR/wC82YfSbf1M5uMqB/0LPYXJfDRAZb8hk6wC+nGngaxs2R5oox+KQ0JTAx5SDLYVbsPJLbSkaYfQlDIXVcOO3YOVGAs/8sFlXRF2Yioeuk0uPLEU7P/N6LtTztBw81gfPHCDkzZu7YCrm6cvbkCpy8P0SaCuCy8R8Du86/GvhqCAc9fTaU0idaOzvlPpgqR/7BAY+e6UoIrD6FlKL8OGsZGtOIsG8nsv5ozqo9911ZRIreK35ammGwRpBxqBkADhW9jS2JoAAvIrmp74XerEJIwcaWxMsDbvrBczFZZEDjQkYf6I21oEJwES3f6mkn48kYbiCLj+dhEhRTchbrgVfl2D+sjw0FILpIWiXnFjZzwH+HjvMbgjW/9jYRU8iEIT3vZBsUTvWwgvl+hqsbKmGgmb5L+w+8Eqkqh/0LWQxoGvzJEPdAAAAAElFTkSuQmCC" alt="" /></button></div>
         </div>
       </div>
     </div>
@@ -266,10 +270,10 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
 <div class="warning-overlay" id="zeroValueWarning" role="dialog" aria-modal="true" aria-labelledby="warningTitle" aria-describedby="warningMessage">
   <div class="warning-dialog">
     <div class="warning-icon-box" aria-hidden="true">
-      <div class="warning-triangle"><div class="warning-symbol">!</div></div>
+      <img src="data:image/png;base64,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" alt="" />
     </div>
-    <h2 id="warningTitle">Action required</h2>
-    <p id="warningMessage">One or more job lines sales price is 0. Do you want to proceed?</p>
+    <h2 id="warningTitle">Caution!</h2>
+    <p id="warningMessage">One or more job lines require attention. Do you want to proceed with this?</p>
     <div class="warning-actions">
       <button type="button" class="warning-continue" id="warningContinue">Continue</button>
       <button type="button" class="warning-cancel" id="warningCancel">Cancel</button>
@@ -281,12 +285,11 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
 function applyJobType(job){
   const type = job.querySelector('.job-type').value;
   const fixed = type === 'Fixed';
+  // Fixed hides Field X. Sales Amount (Field D) is always calculated/read-only.
   job.querySelectorAll('.field-x-wrap').forEach(x => x.classList.toggle('hidden', fixed));
   job.querySelectorAll('.d-input').forEach(d => {
-    const rowDisabled = d.closest('.disabled-line') !== null;
-    if (rowDisabled) { d.disabled = true; d.classList.add('readonly'); return; }
-    d.disabled = !fixed;
-    d.classList.toggle('readonly', !fixed);
+    d.disabled = true;
+    d.classList.add('readonly');
   });
 }
 
@@ -296,34 +299,147 @@ document.querySelectorAll('[data-job]').forEach(job => {
   applyJobType(job);
 });
 
+// Sales Amount = Quantity × Sales Price.
+// Sales Amount is always read-only and updates immediately when either input changes.
+function updateSalesAmount(line){
+  const qty = line.querySelector('.field-a');
+  const salesPrice = line.querySelector('.sales-price-check');
+  const salesAmount = line.querySelector('.sales-amount');
+  if (!qty || !salesPrice || !salesAmount) return;
+
+  const quantity = parseMoney(qty.value);
+  const price = parseMoney(salesPrice.value);
+  salesAmount.value = (quantity * price).toFixed(2);
+}
+
+document.querySelectorAll('.line').forEach(line => {
+  const qty = line.querySelector('.field-a');
+  const salesPrice = line.querySelector('.sales-price-check');
+  if (qty) qty.addEventListener('input', () => updateSalesAmount(line));
+  if (salesPrice) salesPrice.addEventListener('input', () => updateSalesAmount(line));
+  updateSalesAmount(line);
+});
+
 // Document warning logic:
-// When PDA, PF Invoice or FDA is clicked, check the sales-price/final-value field
-// highlighted as Field A in the latest reference screenshot.
-// If at least one active job line has value 0, show the confirmation dialog.
+// Validate each active job line before creating PDA, PF Invoice or FDA.
+// Rules:
+// 1) Sales Amount = 0 -> warning explains that no sales value will be charged.
+// 2) Sales Amount lower than Actual Cost -> negative-margin warning with loss explanation.
+// Cancelled/disabled job lines are ignored.
 const warningOverlay = document.getElementById('zeroValueWarning');
 const warningContinue = document.getElementById('warningContinue');
 const warningCancel = document.getElementById('warningCancel');
-let pendingDocumentAction = null;
+const warningMessage = document.getElementById('warningMessage');
+let pendingDocumentAction = null; // { documentName, mode: 'create' | 'update' }
 
-function hasZeroSalesPrice(){
-  return [...document.querySelectorAll('.sales-price-check')].some(input => {
-    // Ignore lines belonging to a cancelled/disabled job.
-    const line = input.closest('.line');
-    const linesContainer = input.closest('.lines');
-    if (linesContainer && linesContainer.classList.contains('disabled-line')) return false;
+// Store the sales-price state that each document was last created/updated from.
+// An existing PDA / PF Invoice / FDA is only revalidated when a sales price
+// has actually changed since that document's last successful create/update.
+const documentSalesPriceSnapshots = {};
 
-    const value = Number.parseFloat(input.value);
-    return !Number.isNaN(value) && value === 0;
-  });
+function parseMoney(value){
+  const n = Number.parseFloat(String(value ?? '').replace(/[^0-9.-]/g, ''));
+  return Number.isNaN(n) ? 0 : n;
 }
 
-function openZeroWarning(documentName){
-  pendingDocumentAction = documentName;
+function getJobNumber(job){
+  const ref = job.querySelector('.ref');
+  return ref ? ref.textContent.trim() : 'Unknown';
+}
+
+function getLineActualCost(line){
+  // Currency inputs per line: Estimated Unit, Estimated Total,
+  // Actual Unit, Actual Total, Final Unit, Final/Invoice Total.
+  const currencyInputs = [...line.querySelectorAll('.currency input')];
+  return currencyInputs[3] ? parseMoney(currencyInputs[3].value) : 0;
+}
+
+function getSalesPriceSnapshot(){
+  const snapshot = {};
+
+  document.querySelectorAll('[data-job]').forEach(job => {
+    const linesContainer = job.querySelector('.lines');
+    if (!linesContainer || linesContainer.classList.contains('disabled-line')) return;
+
+    const jobNumber = getJobNumber(job);
+    [...linesContainer.querySelectorAll('.line')].forEach((line, index) => {
+      const salesInput = line.querySelector('.sales-price-check');
+      if (!salesInput || (salesInput.disabled && line.closest('.disabled-line'))) return;
+      const key = `${jobNumber}::${index + 1}`;
+      snapshot[key] = parseMoney(salesInput.value);
+    });
+  });
+
+  return snapshot;
+}
+
+function getChangedSalesPriceKeys(previousSnapshot, currentSnapshot){
+  const keys = new Set([
+    ...Object.keys(previousSnapshot || {}),
+    ...Object.keys(currentSnapshot || {})
+  ]);
+
+  return new Set([...keys].filter(key => {
+    const before = previousSnapshot?.[key];
+    const now = currentSnapshot?.[key];
+    return before !== now;
+  }));
+}
+
+function collectDocumentWarnings(changedKeys = null){
+  const issues = [];
+
+  document.querySelectorAll('[data-job]').forEach(job => {
+    const linesContainer = job.querySelector('.lines');
+    if (!linesContainer || linesContainer.classList.contains('disabled-line')) return;
+
+    const jobNumber = getJobNumber(job);
+    const lines = [...linesContainer.querySelectorAll('.line')];
+
+    lines.forEach((line, index) => {
+      const salesInput = line.querySelector('.sales-price-check');
+      if (!salesInput || (salesInput.disabled && line.closest('.disabled-line'))) return;
+
+      const lineNo = index + 1;
+      const lineKey = `${jobNumber}::${lineNo}`;
+
+      // For an already-created document, only revalidate lines whose sales price
+      // changed since that document was last successfully created/updated.
+      if (changedKeys && !changedKeys.has(lineKey)) return;
+
+      const salesPrice = parseMoney(salesInput.value);
+      const salesAmountInput = line.querySelector('.sales-amount');
+      const salesAmount = salesAmountInput ? parseMoney(salesAmountInput.value) : 0;
+      const actualCost = getLineActualCost(line);
+
+      if (salesAmount === 0) {
+        issues.push(`Job ${jobNumber}, line ${lineNo} has a Sales Amount of 0. Proceeding will result in no sales value being charged for this job line.`);
+      } else if (salesAmount < actualCost) {
+        issues.push(`Job ${jobNumber}, line ${lineNo} has a negative margin because the Sales Amount is lower than the Estimated Cost/Actual Cost. Proceeding may result in a loss on this job line.`);
+      }
+    });
+  });
+
+  return issues;
+}
+
+function rememberDocumentSalesPrices(documentName){
+  documentSalesPriceSnapshots[documentName] = getSalesPriceSnapshot();
+}
+
+function buildWarningMessage(issues){
+  if (!issues.length) return '';
+  return `${issues.join(' ')} Do you want to continue?`;
+}
+
+function openDocumentWarning(documentName, issues, mode = 'create'){
+  pendingDocumentAction = { documentName, mode };
+  warningMessage.textContent = buildWarningMessage(issues);
   warningOverlay.classList.add('open');
   warningContinue.focus();
 }
 
-function closeZeroWarning(){
+function closeDocumentWarning(){
   warningOverlay.classList.remove('open');
   pendingDocumentAction = null;
 }
@@ -338,21 +454,21 @@ function createDocument(documentName){
   const config = documentConfig[documentName];
   if (!config) return;
 
-  // Replace the Create button with a created doctype card on the DA screen.
   const block = document.querySelector('[data-docblock="' + documentName + '"]');
   if (block && !block.querySelector('.doc-chip')) {
     const button = block.querySelector('.doc-create');
     if (button) {
       button.outerHTML = '<button type="button" class="doc-chip ' + config.chipClass + ' created-doc-open" data-document="' + documentName + '">' +
         '<span>' + config.number + '</span><span>£ 550.00</span><span class="count"><b>' + config.count + '</b></span></button>';
-      block.querySelector('.created-doc-open').addEventListener('click', () => showDocumentView(documentName));
+      block.querySelector('.created-doc-open').addEventListener('click', () => handleCreatedDocumentClick(documentName));
     }
   }
 
+  rememberDocumentSalesPrices(documentName);
   showDocumentView(documentName);
 }
 
-function showDocumentView(documentName){
+function showDocumentView(documentName, mode = 'create'){
   const config = documentConfig[documentName];
   document.getElementById('docNumberTitle').textContent = config.title;
   document.getElementById('historyMarked').textContent = documentName + ' marked as Sent';
@@ -362,9 +478,45 @@ function showDocumentView(documentName){
   document.getElementById('docView').style.display = 'block';
   window.scrollTo({top:0,behavior:'smooth'});
   const toast = document.getElementById('createdToast');
-  toast.textContent = documentName + ' created successfully';
+  toast.textContent = mode === 'update'
+    ? documentName + ' opened for update'
+    : documentName + ' created successfully';
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+function handleCreatedDocumentClick(documentName){
+  const currentSnapshot = getSalesPriceSnapshot();
+  const previousSnapshot = documentSalesPriceSnapshots[documentName];
+
+  // If this document has no stored snapshot yet, treat the current values as its
+  // baseline and open it without repeating the original create warning.
+  if (!previousSnapshot) {
+    documentSalesPriceSnapshots[documentName] = currentSnapshot;
+    showDocumentView(documentName, 'update');
+    return;
+  }
+
+  const changedKeys = getChangedSalesPriceKeys(previousSnapshot, currentSnapshot);
+
+  // Nothing changed in sales price since the last create/update, so do not warn again.
+  if (changedKeys.size === 0) {
+    showDocumentView(documentName, 'update');
+    return;
+  }
+
+  // Only changed sales-price lines are checked for zero price / negative margin.
+  const issues = collectDocumentWarnings(changedKeys);
+
+  if (issues.length) {
+    openDocumentWarning(documentName, issues, 'update');
+    return;
+  }
+
+  // Sales price changed, but it is valid. Accept the new values as the document's
+  // latest baseline and open immediately without a warning.
+  rememberDocumentSalesPrices(documentName);
+  showDocumentView(documentName, 'update');
 }
 
 document.getElementById('backToDa').addEventListener('click', () => {
@@ -376,29 +528,40 @@ document.getElementById('backToDa').addEventListener('click', () => {
 document.querySelectorAll('.doc-create').forEach(button => {
   button.addEventListener('click', () => {
     const documentName = button.dataset.document;
-    if (hasZeroSalesPrice()) {
-      openZeroWarning(documentName);
+    const issues = collectDocumentWarnings();
+
+    if (issues.length) {
+      openDocumentWarning(documentName, issues, 'create');
       return;
     }
-    // If no job-line sales price is 0, create the selected doctype immediately.
+
+    // No warning condition -> create immediately.
     createDocument(documentName);
   });
 });
 
 warningContinue.addEventListener('click', () => {
-  const documentName = pendingDocumentAction;
+  const action = pendingDocumentAction;
   warningOverlay.classList.remove('open');
   pendingDocumentAction = null;
-  // Continue confirms creation even when one or more sales-price values are 0.
-  if (documentName) createDocument(documentName);
+  if (!action) return;
+
+  if (action.mode === 'update') {
+    // User confirmed the warning for the changed sales price. This becomes the
+    // new baseline, so the same unchanged values will not warn again next time.
+    rememberDocumentSalesPrices(action.documentName);
+    showDocumentView(action.documentName, 'update');
+  } else {
+    createDocument(action.documentName);
+  }
 });
 
-warningCancel.addEventListener('click', closeZeroWarning);
+warningCancel.addEventListener('click', closeDocumentWarning);
 warningOverlay.addEventListener('click', event => {
-  if (event.target === warningOverlay) closeZeroWarning();
+  if (event.target === warningOverlay) closeDocumentWarning();
 });
 document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && warningOverlay.classList.contains('open')) closeZeroWarning();
+  if (event.key === 'Escape' && warningOverlay.classList.contains('open')) closeDocumentWarning();
 });
 </script>
 
